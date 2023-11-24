@@ -1,1 +1,2 @@
-# GameClock
+# Game Clock with Scoreboard
+
