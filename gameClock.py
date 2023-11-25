@@ -15,6 +15,7 @@ class Countdown(tk.Frame):
         self.weight_class.grid(row=0, column=1, columnspan=2)
         self.period.grid(row=1, column=1, columnspan=2)
 
+        #home score and scoring buttons
         self.home_score_label.grid(row=1, column=0)
         self.home_score_score.grid(row=2, column=0)
         self.takedown_home.grid(row=3, column=0)
@@ -27,6 +28,7 @@ class Countdown(tk.Frame):
         self.caution_home.grid(row=10, column=0)
         self.stalling_home.grid(row=11, column=0)
 
+        #visitor score and scoring buttons
         self.visitor_score_label.grid(row=1, column=4)
         self.visitor_score_score.grid(row=2, column=4)
         self.takedown_visitor.grid(row=3, column=4)
@@ -39,14 +41,16 @@ class Countdown(tk.Frame):
         self.caution_visitor.grid(row=10, column=4)
         self.stalling_visitor.grid(row=11, column=4)
 
+        #game clock
         self.clock.grid(row=2, column=1, columnspan=2)
 
+        #buttons to change game time
         self.inc_min_button.grid(row=4, column=1)
         self.dec_min_button.grid(row=5, column=1)
-
         self.inc_sec_button.grid(row=4, column=2)              
         self.dec_sec_button.grid(row=5, column=2)
 
+        #start and stop game clock
         self.start_button.grid(row=6, column=1)
         self.stop_button.grid(row=6, column=2)
 
@@ -54,6 +58,7 @@ class Countdown(tk.Frame):
         self.weight_class = tk.Label(self, text="Weight Class")
         self.period = tk.Label(self, text="Period: ")
 
+        #home score and scoring buttons
         self.home_score_label = tk.Label(self, text="Home", font=("Helvetica", 48))
         self.home_score_score = tk.Label(self, textvariable=self.home_score, font=("Helvetica", 48))
         self.takedown_home   = tk.Button(self, text="Takedown", font=("Helvetica", 12))
@@ -66,6 +71,7 @@ class Countdown(tk.Frame):
         self.caution_home = tk.Button(self, text="Caution", font=("Helvetica", 12))
         self.stalling_home = tk.Button(self, text="Stalling", font=("Helvetica", 12))
 
+        #visitor score and scoring buttons
         self.visitor_score_label = tk.Label(self, text="Visitor", font=("Helvetica", 48))
         self.visitor_score_score = tk.Label(self, textvariable=self.visitor_score, font=("Helvetica", 48))
         self.takedown_visitor   = tk.Button(self, text="Takedown", font=("Helvetica", 12))
@@ -78,14 +84,16 @@ class Countdown(tk.Frame):
         self.caution_visitor = tk.Button(self, text="Caution", font=("Helvetica", 12))
         self.stalling_visitor = tk.Button(self, text="Stalling", font=("Helvetica", 12))
 
+        #game clock
         self.clock = tk.Label(self, text="00:00", font=("Helvetica", 48), relief=tk.SUNKEN, bd=10)
 
+        #buttons to change game clock
         self.inc_min_button = tk.Button(self, text="^ mins", command=self.inc_min)
         self.dec_min_button = tk.Button(self, text="Decrease mins", command=self.dec_min)
-
         self.inc_sec_button = tk.Button(self, text="^ secs", command=self.inc_sec)
         self.dec_sec_button = tk.Button(self, text="Decrease secs", command=self.dec_sec)
 
+        #buttons to start and stop game clock
         self.start_button = tk.Button(self, text="Start", command=self.start, bg="green")
         self.stop_button = tk.Button(self, text="Stop", command=self.stop, bg="red")
 
