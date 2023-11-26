@@ -5,6 +5,8 @@ class Countdown(tk.Frame):
         super().__init__(master)
         self.seconds_left = 120
         self._timer_on = False
+
+        #count tracking variables for each individual match
         self.home_score = 0
         self.visitor_score = 0
         self.caution_home_count = 0
@@ -14,11 +16,13 @@ class Countdown(tk.Frame):
         self.stalling_home_count = 0
         self.stalling_visitor_count = 0
 
-        self.gender_options = ["male", "female"]
+        #dropdown menu options
+        #self.gender_options = ["male", "female"]
         self.weight_class_options = ['male','106','113','120','126','132','138','144','150','157','165','175','190','215','285'
                                      ,'female','100','107','114','120','126','132','138','145','152','165','185','235']
         self.period_options = ["Period: 1", "Period: 2", "Period:3", "1st Overtime", "2nd overtime", "3rd overtime", "Sudden victor"]
 
+        #create program function calls
         self.create_widgets()
         self.show_widgets()
         
@@ -276,6 +280,17 @@ class Countdown(tk.Frame):
     def _set_visitor_score(self, visitor_score):
         self.visitor_score_score.configure(text="%02d" % visitor_score)
 
+    #function that will be called to reset 
+    # each of these values at the start of each match
+    def reset_counters(self):
+        self.home_score = 0
+        self.visitor_score = 0
+        self.caution_home_count = 0
+        self.caution_visitor_count = 0
+        self.penalty_home_count = 0
+        self.penalty_visitor_count = 0
+        self.stalling_home_count = 0
+        self.stalling_visitor_count = 0
 
 if __name__ == "__main__":
     root = tk.Tk()
