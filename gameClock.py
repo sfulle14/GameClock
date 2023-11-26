@@ -13,10 +13,14 @@ class Countdown(tk.Frame):
         self.penalty_visitor_count = 0
         self.stalling_home_count = 0
         self.stalling_visitor_count = 0
+
+        self.weight_class_options = []
+        self.period_options = ["Period: 1", "Period: 2", "Period:3", "1st Overtime", "2nd overtime", "3rd overtime", "Sudden victor"]
+
         self.create_widgets()
         self.show_widgets()
         
-
+    #placing the widgets in their place on the grid
     def show_widgets(self):
         self.weight_class.grid(row=0, column=1, columnspan=2)
         self.period.grid(row=1, column=1, columnspan=2)
@@ -64,7 +68,11 @@ class Countdown(tk.Frame):
 
     def create_widgets(self):
         self.weight_class = tk.Label(self, text="Weight Class")
-        self.period = tk.Label(self, text="Period: ")
+
+        #setting the period
+        self.clicked_period = tk.StringVar()
+        self.clicked_period.set("Period 1")
+        self.period = tk.OptionMenu(self, self.clicked_period, *self.period_options)
 
         #home score and scoring buttons
         self.home_score_label = tk.Label(self, text="Home", font=("Helvetica", 48))
@@ -263,6 +271,8 @@ class Countdown(tk.Frame):
     def _set_visitor_score(self, visitor_score):
         self.visitor_score_score.configure(text="%02d" % visitor_score)
 
+    def show_period(self):
+        self.period.config(text = self.clicked_period.get())
     
 
 if __name__ == "__main__":
