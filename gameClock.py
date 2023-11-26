@@ -16,6 +16,10 @@ class Countdown(tk.Frame):
         self.stalling_home_count = 0
         self.stalling_visitor_count = 0
 
+        #score variables to track team score
+        self.home_team_score = 0
+        self.visitor_team_score = 0
+
         #dropdown menu options
         #self.gender_options = ["male", "female"]
         self.weight_class_options = ['male','106','113','120','126','132','138','144','150','157','165','175','190','215','285'
@@ -72,7 +76,15 @@ class Countdown(tk.Frame):
         self.start_button.grid(row=6, column=1)
         self.stop_button.grid(row=6, column=2)
 
+        #team score visuals
+        self.team_score_label.grid(row=8, column=1, columnspan=2)
+        self.home_team_score_label.grid(row=9, column=1)
+        self.visitor_team_score_label.grid(row=9, column=2)
+        self.home_team_score_score.grid(row=10, column=1)
+        self.visitor_team_score_score.grid(row=10, column=2)
+
     def create_widgets(self):    
+        #weight class selection dropdown
         self.clicked_weight_class = tk.StringVar()
         self.clicked_weight_class.set("106")
         self.weight_class = tk.OptionMenu(self, self.clicked_weight_class, *self.weight_class_options)
@@ -85,7 +97,7 @@ class Countdown(tk.Frame):
 
         #home score and scoring buttons
         self.home_score_label = tk.Label(self, text="Home", font=("Helvetica", 48))
-        self.home_score_score = tk.Label(self, text=self.home_score, font=("Helvetica", 48))
+        self.home_score_score = tk.Label(self, text="00", font=("Helvetica", 48))
         self.takedown_home_bt   = tk.Button(self, text="Takedown", font=("Helvetica", 12), command=self.takedown_home)
         self.reversal_home_bt = tk.Button(self, text="Reversal", font=("Helvetica", 12), command=self.reversal_home)
         self.escape_home_bt = tk.Button(self, text="Escape", font=("Helvetica", 12), command=self.escape_home)
@@ -98,7 +110,7 @@ class Countdown(tk.Frame):
 
         #visitor score and scoring buttons
         self.visitor_score_label = tk.Label(self, text="Visitor", font=("Helvetica", 48))
-        self.visitor_score_score = tk.Label(self, text=self.visitor_score, font=("Helvetica", 48))
+        self.visitor_score_score = tk.Label(self, text="00", font=("Helvetica", 48))
         self.takedown_visitor_bt = tk.Button(self, text="Takedown", font=("Helvetica", 12), command=self.takedown_visitor)
         self.reversal_visitor_bt = tk.Button(self, text="Reversal", font=("Helvetica", 12), command=self.reversal_visitor)
         self.escape_visitor_bt = tk.Button(self, text="Escape", font=("Helvetica", 12), command=self.escape_visitor)
@@ -123,6 +135,13 @@ class Countdown(tk.Frame):
         #buttons to start and stop game clock
         self.start_button = tk.Button(self, text="Start", command=self.start, bg="green")
         self.stop_button = tk.Button(self, text="Stop", command=self.stop, bg="red")
+
+        #team score
+        self.team_score_label = tk.Label(self, text="Team scores", font=("Helvetica", 20))
+        self.home_team_score_label = tk.Label(self, text="Home Score", font=("Helvetica", 20), relief="solid", bd=5)
+        self.visitor_team_score_label = tk.Label(self, text="Visitor Score", font=("Helvetica", 20), relief="solid", bd=5)
+        self.home_team_score_score = tk.Label(self, text="00", font=("Helvetica", 48))
+        self.visitor_team_score_score = tk.Label(self, text="00", font=("Helvetica", 48))
 
 
     #clock functions
