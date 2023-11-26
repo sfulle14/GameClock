@@ -69,7 +69,6 @@ class Countdown(tk.Frame):
         #home score and scoring buttons
         self.home_score_label = tk.Label(self, text="Home", font=("Helvetica", 48))
         self.home_score_score = tk.Label(self, text=self.home_score, font=("Helvetica", 48))
-
         self.takedown_home_bt   = tk.Button(self, text="Takedown", font=("Helvetica", 12), command=self.takedown_home)
         self.reversal_home_bt = tk.Button(self, text="Reversal", font=("Helvetica", 12), command=self.reversal_home)
         self.escape_home_bt = tk.Button(self, text="Escape", font=("Helvetica", 12), command=self.escape_home)
@@ -83,18 +82,18 @@ class Countdown(tk.Frame):
         #visitor score and scoring buttons
         self.visitor_score_label = tk.Label(self, text="Visitor", font=("Helvetica", 48))
         self.visitor_score_score = tk.Label(self, text=self.visitor_score, font=("Helvetica", 48))
-        self.takedown_visitor_bt = tk.Button(self, text="Takedown", font=("Helvetica", 12))
-        self.reversal_visitor_bt = tk.Button(self, text="Reversal", font=("Helvetica", 12))
-        self.escape_visitor_bt = tk.Button(self, text="Escape", font=("Helvetica", 12))
-        self.nearfall_2_visitor_bt = tk.Button(self, text="Nearfall +2", font=("Helvetica", 12))
-        self.nearfall_3_visitor_bt = tk.Button(self, text="Nearfall +3", font=("Helvetica", 12))
-        self.penalty_visitor_bt = tk.Button(self, text="Penalty", font=("Helvetica", 12))
-        self.caution_visitor_bt = tk.Button(self, text="Caution", font=("Helvetica", 12))
-        self.stalling_visitor_bt = tk.Button(self, text="Stalling", font=("Helvetica", 12))
+        self.takedown_visitor_bt = tk.Button(self, text="Takedown", font=("Helvetica", 12), command=self.takedown_visitor)
+        self.reversal_visitor_bt = tk.Button(self, text="Reversal", font=("Helvetica", 12), command=self.reversal_visitor)
+        self.escape_visitor_bt = tk.Button(self, text="Escape", font=("Helvetica", 12), command=self.escape_visitor)
+        self.nearfall_2_visitor_bt = tk.Button(self, text="Nearfall +2", font=("Helvetica", 12), command=self.nearfall_2_visitor)
+        self.nearfall_3_visitor_bt = tk.Button(self, text="Nearfall +3", font=("Helvetica", 12), command=self.nearfall_3_visitor)
+        self.penalty_visitor_bt = tk.Button(self, text="Penalty", font=("Helvetica", 12), command=self.penalty_visitor)
+        self.caution_visitor_bt = tk.Button(self, text="Caution", font=("Helvetica", 12), command=self.caution_visitor)
+        self.stalling_visitor_bt = tk.Button(self, text="Stalling", font=("Helvetica", 12), command=self.stalling_visitor)
         self.minus_1_visitor_bt = tk.Button(self, text="-1", command=self.dec_visitor_score)
 
         #game clock
-        self.clock = tk.Label(self, text="02:00", font=("Helvetica", 48), relief=tk.SUNKEN, bd=10)
+        self.clock = tk.Label(self, text="02:00", font=("Helvetica", 48), relief="solid", bd=5)
 
         #buttons to change game clock
         self.minutes_label = tk.Label(self, text="Minutes")
@@ -107,6 +106,7 @@ class Countdown(tk.Frame):
         #buttons to start and stop game clock
         self.start_button = tk.Button(self, text="Start", command=self.start, bg="green")
         self.stop_button = tk.Button(self, text="Stop", command=self.stop, bg="red")
+
 
     #clock functions
     def inc_min(self):
@@ -148,6 +148,7 @@ class Countdown(tk.Frame):
     
 
     #scoreboard functions
+    #home scoring functions
     def takedown_home(self):
         self.home_score += 2
         self._set_home_score(self.home_score)
@@ -200,11 +201,62 @@ class Countdown(tk.Frame):
     def dec_home_score(self):
         self.home_score -= 1
         self._set_home_score(self.home_score)
+    
+    #visitor scoring functions
+    def takedown_visitor(self):
+        self.visitor_score += 2
+        self._set_visitor_score(self.visitor_score)
+
+    def reversal_visitor(self):
+        self.visitor_score += 2
+        self._set_visitor_score(self.visitor_score)
+
+    def escape_visitor(self):
+        self.visitor_score += 1
+        self._set_visitor_score(self.visitor_score)
+
+    def nearfall_2_visitor(self):
+        self.visitor_score += 2
+        self._set_visitor_score(self.visitor_score)
+
+    def nearfall_3_visitor(self):
+        self.visitor_score += 3
+        self._set_visitor_score(self.visitor_score)
+
+    def penalty_visitor(self):
+        self.penalty_visitor_count += 1
+        if self.penalty_visitor_count < 3:
+            self.home_score += 1
+            self._set_home_score(self.home_score)
+        else:
+            self.home_score += 2
+            self._set_home_score(self.home_score)
+
+    def caution_visitor(self):
+        self.caution_visitor_count += 1
+        if self.caution_visitor_count >= 3 and (self.caution_visitor_count <4 or self.penalty_visitor_count < 2):
+            self.home_score += 1
+            self.penalty_visitor_count += 1
+            self._set_home_score(self.home_score)
+        elif self.caution_visitor_count >=4 or self.penalty_visitor_count >= 2:
+            self.home_score += 2
+            self.penalty_visitor_count += 1
+            self._set_home_score(self.home_score)
+
+    def stalling_visitor(self):
+        self.stalling_visitor_count += 1
+        if self.stalling_visitor_count > 1 and self.stalling_visitor_count <= 3:
+            self.home_score += 1
+            self._set_home_score(self.home_score)
+        elif self.stalling_visitor_count > 3:
+            self.home_score += 2
+            self._set_home_score(self.home_score)
 
     def dec_visitor_score(self):
         self.visitor_score -= 1
         self._set_visitor_score(self.visitor_score)
-        
+
+    #refreshing the scores after each scoreboard button press 
     def _set_home_score(self, home_score):
         self.home_score_score.configure(text="%02d" % home_score)
     
