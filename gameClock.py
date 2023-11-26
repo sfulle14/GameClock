@@ -14,7 +14,9 @@ class Countdown(tk.Frame):
         self.stalling_home_count = 0
         self.stalling_visitor_count = 0
 
-        self.weight_class_options = ['106','113','120','126','132','138','144','150','157','165','175','190','215','285']
+        self.gender_options = ["male", "female"]
+        self.weight_class_options = ['male','106','113','120','126','132','138','144','150','157','165','175','190','215','285'
+                                     ,'female','100','107','114','120','126','132','138','145','152','165','185','235']
         self.period_options = ["Period: 1", "Period: 2", "Period:3", "1st Overtime", "2nd overtime", "3rd overtime", "Sudden victor"]
 
         self.create_widgets()
@@ -66,10 +68,11 @@ class Countdown(tk.Frame):
         self.start_button.grid(row=6, column=1)
         self.stop_button.grid(row=6, column=2)
 
-    def create_widgets(self):
+    def create_widgets(self):    
         self.clicked_weight_class = tk.StringVar()
         self.clicked_weight_class.set("106")
         self.weight_class = tk.OptionMenu(self, self.clicked_weight_class, *self.weight_class_options)
+        
 
         #setting the period
         self.clicked_period = tk.StringVar()
@@ -273,7 +276,6 @@ class Countdown(tk.Frame):
     def _set_visitor_score(self, visitor_score):
         self.visitor_score_score.configure(text="%02d" % visitor_score)
 
-    
 
 if __name__ == "__main__":
     root = tk.Tk()
